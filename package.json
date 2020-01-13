@@ -1,0 +1,15 @@
+{
+  "name": "todoist-poc",
+  "version": "1.0.0",
+  "description": "Proof of Concept of Automation framework for both front and backend testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "testcafe chrome tests/login_test.js; testcafe chrome tests/add_task_test.js; testcafe chrome tests/incorrect_email_test.js; testcafe chrome tests/incorrect_password_test.js; testcafe chrome tests/add_tasks_test.js"
+  },
+  "author": "Grissell_Esquivel <grissell.esquivel@wizeline.com>",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "testcafe": "^1.7.1"
+  }
+}
