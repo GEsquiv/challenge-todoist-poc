@@ -1,22 +1,55 @@
-import { HomePage } from '../pages/TodoistHomePage';
-import { LoginPage } from '../pages/LoginPage';
-import {StartPage} from '../pages/StartPage';
-require('dotenv').config();
+import HomePage  from '../pages/TodoistHomePage';
+import LoginPage from '../pages/LoginPage';
+import StartPage from '../pages/StartPage';
+import * as data from '../utils/constants';
 
-const homePage = new HomePage();
-const loginPage = new LoginPage();
-const startPage = new StartPage();
 
 fixture `Login to Todoist`
-    .page `https://todoist.com/`;
+    .page (data.URL);
 
-    test ('Login test', async t => {
+    test('Login test', async t => {
+        HomePage.begin_login()
+        LoginPage.user_login(data.EMAIL, data.PASSWORD)
         await t
-        .click(homePage.loginButton)
-        .switchToIframe('._3ga5XTxZEFAiG-Q7KQfQnT')
-        .typeText(loginPage.email, `${process.env.EMAIL_ADDRESS}`)
-        .typeText(loginPage.password, `${process.env.PASSWORD}`)
-        .click(loginPage.login)
-        .switchToMainWindow()
-        .expect(startPage.inbox.exists).ok()
+        .expect(StartPage.inbox.exists).ok()
     }); 
+
+fixture `Incorrect Login to Todoist`
+    .page (data.URL);
+
+    test ('Incorrect password login test', async t => {
+        HomePage.begin_login()
+        LoginPage.user_login(data.EMAIL, data.INCORRECT_PASSWORD)
+        await t
+        .expect(StartPage.inbox.exists).notOk()
+    }); 
+
+fixture `Incorrect Login to Todoist`
+    .page (data.URL);
+
+    test('Incorrect email login test', async t => {
+        HomePage.begin_login()
+        LoginPage.user_login(data.INCORRECT_EMAIL, data.PASSWORD)
+        await t
+        .expect(StartPage.inbox.exists).notOk()
+    });
+
+fixture `Incorrect Login to Todoist`
+    .page (data.URL);
+
+    test('Blank email correct password', async t => {
+        HomePage.begin_login()
+        LoginPage.empty_user(data.PASSWORD)
+        await t
+        .expect(StartPage.inbox.exists).notOk()
+    });
+
+fixture `Incorrect Login to Todoist`
+    .page (data.URL);
+
+    test('Correct email blank password', async t => {
+        HomePage.begin_login()
+        LoginPage.empty_password(data.EMAIL)
+        await t
+        .expect(StartPage.inbox.exists).notOk()
+    });
