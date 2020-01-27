@@ -1,0 +1,829 @@
+{
+	"info": {
+		"_postman_id": "90fba562-ec38-4d5c-a8cd-985a854033de",
+		"name": "Todoist_POC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Create Task without Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "699da12f-9f6c-4cc4-9b8f-444d831a0b09",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(200));",
+									"});",
+									"",
+									"pm.test(\"Name matches string\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"id_task\", jsonData.id);",
+									"    pm.expect(jsonData.project_id).to.eql(parseInt(pm.environment.get(\"inbox_id\")));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"Appointment with Maria\", \n\t\"due_string\": \"tomorrow at 12:00\",\n\t\"due_lang\": \"en\",\n\t\"priority\": 4\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks"
+							]
+						},
+						"description": "Create Task"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Task with Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "699da12f-9f6c-4cc4-9b8f-444d831a0b09",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(200));",
+									"});",
+									"",
+									"pm.test(\"Name matches string\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"id_task\", jsonData.id);",
+									"    pm.expect(jsonData.project_id).to.eql(parseInt(pm.environment.get(\"inbox_id\")));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"Appointment with Maria\", \n\t\"due_string\": \"tomorrow at 12:00\",\n\t\"due_lang\": \"en\",\n\t\"priority\": 4\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks"
+							]
+						},
+						"description": "Create Task with Project ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtain Active Tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c3e54ca-1dfc-4acf-8496-c258e99c9c51",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(200));",
+									"});",
+									"",
+									"pm.test(\"ID matches string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[jsonData.length-1].id).to.eql(parseInt(pm.environment.get(\"id_task\")));",
+									"    });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks"
+							]
+						},
+						"description": "Obtain Active Tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtain Active Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "180fabd1-bd41-49ad-af85-05e0df1a3148",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(200));",
+									"});",
+									"",
+									"pm.test(\"Name matches string\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"id_task\")));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks/{{id_task}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks",
+								"{{id_task}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "699da12f-9f6c-4cc4-9b8f-444d831a0b09",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(204));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"Appointment with Griss\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks/{{id_task}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks",
+								"{{id_task}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "699da12f-9f6c-4cc4-9b8f-444d831a0b09",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(204));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"Appointment with Griss\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks/{{id_task}}/close",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks",
+								"{{id_task}}",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reopen Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "699da12f-9f6c-4cc4-9b8f-444d831a0b09",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(204));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"Appointment with Griss\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks/{{id_task}}/reopen",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks",
+								"{{id_task}}",
+								"reopen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "699da12f-9f6c-4cc4-9b8f-444d831a0b09",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(204));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"Appointment with Griss\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/tasks/{{id_task}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"tasks",
+								"{{id_task}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Create a new Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73491e54-928c-4b75-bfe8-1a492d0d5f90",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(200));",
+									"});",
+									"    ",
+									"pm.test(\"Name matches string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"id_test\", jsonData.id);",
+									"    pm.environment.set(\"test_name\", jsonData.name)",
+									"    pm.expect(jsonData.name).to.eql(\"Test One\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Test One\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/projects",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"projects"
+							]
+						},
+						"description": "Create a new Project"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtain al projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9aa286f8-6694-4a86-9bb9-b3fc3737e3d8",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(200));",
+									"});",
+									"",
+									"pm.test(\"Name matches string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[jsonData.length-1].name).to.eql(pm.environment.get(\"test_name\"));",
+									"    });",
+									"    ",
+									"pm.test(\"ID matches string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[jsonData.length-1].id).to.eql(parseInt(pm.environment.get(\"id_test\")));",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/projects",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"projects"
+							]
+						},
+						"description": "Obtains all projects."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtain a project by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3a57323-c8be-41e3-b39b-cd30f18fd758",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(200));",
+									"});",
+									"",
+									"pm.test(\"ID matches num\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"id_test\")));",
+									"});",
+									"",
+									"pm.test(\"Name matches string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"test_name\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/projects/{{id_test}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"projects",
+								"{{id_test}}"
+							]
+						},
+						"description": "Obtain a project by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b630d42a-aa90-49c4-9693-96eb9fb7b488",
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(204));",
+									"    pm.environment.set(\"test_name\", \"New Name\")",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"New Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/projects/{{id_test}}?",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"projects",
+								"{{id_test}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Update a project"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66597596-d88b-446e-9c64-0be4b95b3876",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.to.have.status(204));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.todoist.com/rest/v1/projects/{{id_test}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"projects",
+								"{{id_test}}"
+							]
+						},
+						"description": "Delete a Project"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
