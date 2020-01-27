@@ -18,7 +18,7 @@ test('Add task test', async t => {
 fixture`Add tasks to Todoist`
   .page(data.URL);
 
-test.only('Add multiple tasks', async t => {
+test('Add multiple tasks', async t => {
   HomePage.beginLogin();
   LoginPage.userLogin(data.EMAIL, data.PASSWORD);
   for (let i = 0; i < 10; i++){

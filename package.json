@@ -6,7 +6,7 @@
   "scripts": {
     "test": "testcafe chrome tests/login_test.js; testcafe chrome tests/add_task_test.js",
     "chromelogin": "testcafe chrome tests/login_test.js",
-    "chrome:headless": "testcafe chrome tests/login_test.js; testcafe chrome tests/add_task_test.js",
+    "chromejenkins": "testcafe chrome:headless tests/login_test.js; testcafe chrome:headless tests/add_task_test.js",
     "chrometasks" : "testcafe chrome tests/add_task_test.js",
     "firefoxlogin": "testcafe firefox tests/login_test.js",
     "safarilogin": "testcafe safari tests/login_test.js"
