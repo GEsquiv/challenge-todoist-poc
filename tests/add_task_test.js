@@ -12,16 +12,18 @@ test('Add task test', async t => {
   LoginPage.userLogin(data.EMAIL, data.PASSWORD);
   StartPage.addTask(data.TASK_NAME);
   await t
-    .expect(StartPage.newTask.withExactText(data.TASK_NAME).exists).ok();
+    .expect(StartPage.newTask.withText(data.TASK_NAME).exists).ok();
 });
 
-fixture`Add multiple tasks to Todoist`
+fixture`Add tasks to Todoist`
   .page(data.URL);
 
-test('Add multiple tasks', async t => {
+test.only('Add multiple tasks', async t => {
   HomePage.beginLogin();
   LoginPage.userLogin(data.EMAIL, data.PASSWORD);
-  StartPage.addTasks(data.TASKS_NAMES);
-  await t
-    .expect(StartPage.newTask.withExactText('hello1').exists).ok();
+  for (let i = 0; i < 10; i++){
+    await StartPage.addTask(`${data.TASK_NAME}_${i}`);
+    await t
+    .expect(await StartPage.newTask.withText(`${data.TASK_NAME}_${i}`).exists).ok();
+  }
 });

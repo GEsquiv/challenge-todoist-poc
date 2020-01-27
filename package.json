@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "testcafe chrome tests/login_test.js; testcafe chrome tests/add_task_test.js",
-    "testcafe": "testcafe chrome ./tests -e -d",
-    "debug": "testcafe chrome tests/add_tasks_test.js",
-    "chromelogin": "testcafe chrome tests/login_test.js"
+    "chromelogin": "testcafe chrome tests/login_test.js",
+    "chrome:headless": "testcafe chrome tests/login_test.js; testcafe chrome tests/add_task_test.js",
+    "chrometasks" : "testcafe chrome tests/add_task_test.js",
+    "firefoxlogin": "testcafe firefox tests/login_test.js",
+    "safarilogin": "testcafe safari tests/login_test.js"
   },
   "author": "Grissell_Esquivel <grissell.esquivel@wizeline.com>",
   "license": "ISC",
