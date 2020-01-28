@@ -5,7 +5,7 @@ export class LoginPage {
     this.email = Selector('#email');
     this.password = Selector('#password');
     this.login = Selector('.ist_button_red');
-    this.iframe = Selector('._3ga5XTxZEFAiG-Q7KQfQnT');
+    this.iframe = Selector('._3ga5X');
   }
 
   async userLogin(user, password) {
